@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link href="../static/css/new.css" rel="stylesheet">
+    <script  type="text/javascript">
+        Date.prototype.format = function(fmt) { 
+            var o = { 
+                "M+" : this.getMonth()+1,                 //月份 
+                "d+" : this.getDate(),                    //日 
+                "h+" : this.getHours(),                   //小时 
+                "m+" : this.getMinutes(),                 //分 
+                "s+" : this.getSeconds(),                 //秒 
+                "q+" : Math.floor((this.getMonth()+3)/3), //季度 
+                "S"  : this.getMilliseconds()             //毫秒 
+            }; 
+            if(/(y+)/.test(fmt)) {
+                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+            }
+            for(var k in o) {
+                if(new RegExp("("+ k +")").test(fmt)){
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+                }
+            }
+            return fmt; 
+        }  
+    </script> 
+    <title>新闻资讯</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="mid-cont">
+                <div class="pull-left logo"><img src="../static/img/logo.png" /></div>
+                <nav class="pull-right">
+                    <a href="">网站首页</a>
+                    <a href="/newslist" class="active">新闻资讯</a>
+                    <a href="">联系我们</a>
+                    <a href="">申请加入</a>
+                    <a href="">关于我们</a>
+                    <a href="" class="back-home">返回首页</a>
+                </nav>
+                <div class="clear"></div>
+
+            </div>
+            <div class="banner">
+                <img src="../static/img/banner.jpg" />
+            </div>
+
+        </div>
+        <div class="bodyer mid-cont">
+            <div class="am-u-lg-9 am-u-md-12 content">
+                <!-- <a class="title">“撂荒田”种成“聚宝盆”</a> -->
+                <a class="title" href="#">{{title}}</a>
+                <div class="remarks am-u-md-12">
+                    <!-- <span>2017-07-14 13:04:34</span> -->
+                    <span>{{new Date(Date.parse(release)).format("yyyy-MM-dd hh:mm:ss")}}</span>
+                    <span>{{edit}}</span>
+                    <span><i></i>{{click ? click : 1}}</span>
+                </div>
+                <div class="article" v-html="content"></div>
+                <div class="page">
+                    <a class="pull-left" :href="'/news?hash='+ paging.left.hash">上一篇：{{paging.left.title}}</a>
+                    <a class="pull-right" :href="'/news?hash='+ paging.right.hash">下一遍：{{paging.right.title}}</a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="am-u-lg-3 right">
+                <div>
+                    <div class="search"><span class="am-icon-search" @click="SearchNewsList"></span><input v-model="kw" /></div>
+                    <div class="recommend">
+                        <span>为您推荐</span>
+                        <ul>
+                            <li v-for="item of recomlist"><a :href="'/news?hash='+item.hash">{{item.title}}</a></li>                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+        </div>
+        <div class="footer">
+            <div class="friend-link">
+                <ul>
+                    <li>友情链接：</li>
+                    <li><a href=""><img src="../static/img/friend.jpg"/></a></li>
+                    <li><a href=""><img src="../static/img/friend.jpg"/></a></li>
+                    <li><a href=""><img src="../static/img/friend.jpg"/></a></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="copy-right">
+                <p>我的网站 版权所有 2008-2016 湘ICP备8888888</p>
+                <p>本页面内容为网站演示数据，前台页面内容可以在后台修改。</p>
+                <p>Powered by MetInfo 5.3.17</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/vue.js"></script>
+    <script type="text/javascript" src="/static/js/news.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+/* 清除默认样式 */
+ul,li{  
+    list-style-type:none;  
+    margin:0;
+    padding:0;
+
+}  
+
+
+/* 通用样式 */
+
+html,body{
+    width:100%;
+    height:100%;
+    font-size:12px;
+}
+.pull-left{
+    float:left;
+}
+.pull-right{
+    float:right;
+}
+.clear{
+    clear: both;
+}
+a{
+    cursor: pointer;
+}
+.mid-cont{
+    width:100%;
+    max-width:1200px;
+    margin: 0 auto;
+}
+
+/* header */
+.header{
+    font-size:1.16rem;
+}
+.header a{
+    padding: 7px 13px;
+    color:#333333;
+    line-height: 60px;
+    font-size:1.18rem;
+
+}
+.logo{
+    line-height: 60px;
+}
+.header a.active{
+    color:#fff;
+    background-color:#c91212;
+    border-radius: 5px;
+}
+.header a:hover{
+    color:#fff;
+    background-color:#c91212;
+    border-radius: 5px;
+}
+.login{
+    margin-left:38px;
+}
+.login a{
+    padding: 9px 15px;
+    color: #0bce7e;
+}
+.login a:hover{
+    color: #fff;
+    background-color: #0bce7e;
+}
+.banner{
+    overflow: hidden;
+}
+
+.slide{
+    width:1000%;
+    
+}
+.slide img{
+    width:100%;
+}
+.slide li{
+    float:left;
+}
+/* bodyer */
+.bodyer{
+    width:100%;
+    margin-top: 3.8rem;
+}
+
+.title{
+    color:#666666;
+    font-size:3.17rem;
+    text-align: center;
+}
+.small-title{
+    color: #666666;
+    font-size:1.34rem;
+    text-align: center;
+}
+.small-title span{
+    color: #bbbbbb;
+}
+/* 平台特色 */
+.feature{
+    width:100%;
+    overflow: hidden;
+    margin-top:6rem;
+
+} 
+.feature ul{
+    width:125%;
+    
+}
+.feature li{
+    float:left;
+    width:20%;;
+    text-align: center;
+}
+.feature img{
+    width:100%;
+    max-width: 100px;
+}
+.feature div{
+    font-size:1.34rem;
+    line-height: 3.83rem;
+    margin: 3px 2.67rem;
+    border-bottom:1px solid #dfdfdf;
+    color: #666666;
+}
+.feature p{
+   padding: 10px 2.67rem;
+   font-size:1rem;
+   text-align: left;
+   color: #777777;
+   
+}
+/* 全民知识传播 */
+.spread{
+    margin-top:4rem;
+}
+.spread img{
+    width:100%;
+}
+
+.spread p{
+    font-size:1.7rem;
+    line-height: 5.5rem;
+    text-align: center;
+    color: #666666;
+}
+.about-us h1{
+    font-size:2rem;
+    margin:0 0 1rem 0;
+}
+.about-us h3{
+    font-size: 1.33rem;
+    margin:0 0 1rem 0;
+}
+.about-us p{
+    color: #666666;
+    font-size:1.17rem;
+    line-height: 2.17rem;
+}
+.arrows{
+    background:url('../img/arrows.png') no-repeat;
+    width:100%;
+    height:30px;
+    display: block;
+}
+
+/* apply 正在筹划中的应用 */
+.applying{
+    margin-top:6rem;
+}
+.apply{
+    margin-top:4rem;
+}
+.apply ul{
+    width:100%;
+    
+}
+.apply li{
+    float:left;
+    width:28%;
+    margin-top:30px;
+}
+li.active{
+    width: 40%;
+    margin:0 2%;
+    margin-top:0;
+}
+.apply img{
+    width:100%;
+}
+.apply h1{
+    color:#555555;
+    font-size: 1.67rem;
+    padding:1rem 0;
+    margin:0;
+    border-bottom:1px solid #dfdfdf;
+}
+.apply p{
+    font-size:1.17rem;
+    line-height: 2rem;
+    
+    color: #777777;
+}
+
+/* cooperation 合作伙伴 */
+
+.cooperation{
+    margin: 8rem 0;
+}
+/* footer */
+.footer{
+    text-align: center;
+    background-color:#ededed;
+    font-size:1.18rem;
+    
+}
+
+.friend-link ul{
+    display:flex;
+    justify-content: center;
+    display: -webkit-flex; /* Safari */
+    text-align: center;
+}
+.friend-link li{
+    padding:18px 40px;
+    flex-direction: column;
+}
+
+/* 针对amazeui修改
+.am-slider-default .am-control-nav{
+    margin-top:-50px;
+    bottom:0;
+}  */

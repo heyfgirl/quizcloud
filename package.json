@@ -1,0 +1,33 @@
+{
+  "name": "quizcloud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "copyto": "^1.0.1",
+    "jade": "1.11.0",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-generic-session": "^2.0.0",
+    "koa-views": "6.0.2",
+    "koa2-routing": "^2.1.1",
+    "log": "^1.4.0",
+    "mysql2": "^1.3.6",
+    "nunjucks": "^3.0.1",
+    "pg": "^6.1.0",
+    "pug": "^2.0.0-rc.3",
+    "sequelize": "^4.4.2",
+    "uid": "0.0.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/shangye/quizcloud#readme"
+}
