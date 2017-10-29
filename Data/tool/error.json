@@ -1,0 +1,56 @@
+{
+
+    "unknow":{
+        "code":1,"type":"common","msg":"未知错误","tips":"服务器发生未知异常，该异常已记录到日志中，请稍后重试。"
+    },
+    "requestError":{
+        "code":400,"type":"common","msg":"错误请求","tips":"请求中有语法问题，或不能满足请求。"
+    },
+    "noAuth":{
+        "code":401,"type":"common","msg":"请求未授权","tips":"请求未通过授权，请传递正确授权参数。"
+    },
+    "forbidden":{
+        "code":403,"type":"common","msg":"禁止访问","tips":"未获取请求权利，请求被拒绝。"
+    },
+    "notFound":{
+        "code":404,"type":"common","msg":"地址错误","tips":"地址错误，请检查请求地址。"
+    },
+    "methodNotAllowed":{
+        "code":405,"type":"common","msg":"请求方法错误","tips":"请求方式错误。"
+    },
+    "userExisted":{
+        "code":3001,"type":"acount","msg":"用户名已存在","tips":"该用户名已被注册"
+    },
+    "userInvalid":{
+        "code":3002,"type":"acount","msg":"用户名不合法","tips":"该用户名包含非法字符"
+    },
+    "userNotFound":{
+        "code":3010,"type":"acount","msg":"用户名不存在","tips":"登陆失败，未找到该用户"
+    },
+    "userNotLogin":{
+        "code":3012,"type":"acount","msg":"登录失败","tips":"登录失败，用户名或密码错误"
+    },
+    "userRegisterFailed":{
+        "code":3020,"type":"acount","msg":"缺少必要参数","tips":"注册失败，请完整填写注册信息"
+    },
+    "appExisted":{
+        "code":4201,"type":"app","msg":"该应用已存在","tips":"app创建失败，该应用名已存在"
+    },
+    "orgNoAuthApp":{
+        "code":4203,"type":"app","msg":"无权访问该应用","tips":"该应用尚未开放"
+    },
+    "appNotFound":{
+        "code":4210,"type":"app","msg":"数据库连接失败","tips":"未找到该应用"
+    },
+
+    "noConnected":{
+        "code":5001,"type":"sequelize","msg":"数据库连接失败","tips":"连接数据库失败"
+    },
+    "notNull":{
+        "code":5010,"type":"sequelize","msg":"违反非空约束","tips":"数据库操作失败，提交数据不能为空"
+    },
+    "notUnique":{
+        "code":5012,"type":"sequelize","msg":"违反唯一值约束","tips":"数据库操作失败，提交的数据不能重复"
+    }
+
+}
