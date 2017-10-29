@@ -1,0 +1,22 @@
+.total_input>input{
+    border-left:0px;
+    border-top:0px;
+    border-right:0px;
+    border-bottom:1px;
+    width: 100px;
+}
+.disableash{
+    z-index: 888;
+    background: #CDC9C9;
+    position:absolute;
+    width: 83%;
+    height: 80%;
+    opacity: 0.5;
+}
+.grouplist{
+    overflow-y: scroll;
+    height: 66px;
+}
+.grouplist>label {
+    margin-right: 40px;
+}

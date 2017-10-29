@@ -1,0 +1,465 @@
+
+html,body{
+    width:100%;
+    height:100%;
+}
+@media (max-width: 1028px){
+    .navRight{
+        display: none;
+    }
+ }
+
+/* 清除默认样式 */
+*{margin:0;padding:0}
+
+li{list-style:none}
+
+img{vertical-align:top;border:none}
+
+.nodisplay{
+    display: none;
+}
+.pull-left{
+    float:left;
+}
+
+.pull-right{
+    float:right;
+}
+.clear{
+    clear: both;
+}
+.content{
+    width:90%;
+    max-width:1200px;
+    margin: auto;
+    height:auto;
+}   
+.header{
+    background-color:#a23137;
+    height:38px;
+    line-height: 38px;
+
+}
+
+.header a,span{
+    color: #fff;
+    font: 1.4rem bold;
+}
+
+.header span{
+    padding: 0.2rem 0.3rem;
+}
+.banner{
+    width:100%;
+    text-align: center;
+    position: relative;
+
+}
+.banner h1{
+    color:#c5757e;
+    font-size: 2em;
+    width: 40%;
+    margin: auto;  
+    position: absolute;  
+    top: 3em; left: 0; bottom: 0; right: 0;  
+    
+}
+.banner img{
+    width:100%;
+    max-width: 1920px;
+}
+/* body背景 */
+.bodyer{
+    background: url('../img/mountain.jpg') no-repeat;
+    background-size: contain;
+}
+.bodyer-foot{
+    height:372px;
+    margin-top:-215px;
+    background: url('../img/lotus2.jpg') no-repeat;
+    background-size: contain;
+    background-position: bottom;
+
+}
+
+/* 右侧工具栏 */
+.side-tools{
+    height: 200px;
+    /* width:50px; */
+    position: fixed;
+    right:20px;;
+    top:50%;
+    margin-top:-100px;
+    text-align: center;
+}
+.side-tools a{
+    display: block;
+    width:52px;
+    height:52px;
+    margin: 10px 5px;
+    padding: 5px;
+    border:1px solid #bcbec7;
+    font-size: 12px;
+    font-weight:bold;
+    color:#333333;
+    background-color:#fff;
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px 1px #bcbec7;
+    
+}
+.side-tools a.active{
+    background-color: #fe202e;
+    color: #fff;
+}
+.side-tools a:first-child{
+    line-height: 44px;
+}
+
+.side-tools a:last-child{
+
+    padding: 8px;
+}
+/* 新闻通知 */
+.news ul{
+    margin-top:-30px;
+}
+.mennu{
+    height:73px;
+}
+.inkdot{
+    background: url('../img/inkdot.png') no-repeat;
+    padding:20px 47px;
+}
+.more{
+    color:#941c28;
+    line-height: 60px;
+}
+/* 新闻通知 */
+.new-list{
+   border-bottom: 1px solid #dbdbdb;
+   padding-bottom: 30px;
+   padding-top:20px;
+}
+.new-list div{
+    display: inline-block;
+}
+
+.new-left{
+    width:160px;
+    height:160px;
+}
+
+.new-left img{
+    position: absolute;
+}
+.new-cover-bg{
+    width:160px;
+    height:160px;
+    z-index: 99;
+   
+}
+.new-cover{
+    width:140px;
+    height:140px;
+    overflow: hidden;
+}
+.title{
+    color:#333333;
+    font:2rem '微软雅黑';
+}
+.new-right p{
+    color:#999999;
+    font-size:1.6rem;
+    line-height: 2.8rem;
+}
+.new-right span{
+    color:#9e2d34;
+}
+.knowledge{
+    /* height: 478px; */
+    overflow: hidden;
+}
+.knowledge-txt{
+    color:#666666;
+    font-size:1.6rem;
+    line-height: 2.8rem; 
+
+}
+
+.inkmark{
+    background: url('../img/inkmark.png') no-repeat;
+    padding:20px 47px;
+}
+.ranking{
+    background-image:url('../img/ranking.png');
+    background-size: cover;
+    height:500px;
+}
+.ranking-cont{
+    margin-left:50px;
+    width: auto;
+}
+
+.inform-menum{
+    padding: 14px;
+}
+.inform-menum span{
+    background:url('../img/ink.png') no-repeat;
+    padding: 9px 16px;
+    color:#fff;
+}
+
+.inform-cont{
+    margin-top:30px;
+    padding:20px;
+    background:url('../img/informbg.png') no-repeat;
+	background-size:contain;
+    width:100%;
+    max-width:419px;
+    height: 403px;
+}
+
+.footer{
+    height: 197px;
+    background-color: #7c7c7c;
+    color:#fff;  
+    text-align: center;
+    padding-top:20px;
+}
+.footer div{
+    padding: 5px 0;
+}
+.footer a,span{
+    color:#fff;  
+    padding:5px; 
+}
+
+.icon li{
+    display: inline;
+    padding:5px 8px;
+}
+
+
+/* login-box 登录框 */
+.lay{
+    width:100%;
+    height:100%;
+    background-color:#000;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:99;
+    opacity:0.5;
+    /*兼容IE8及以下版本浏览器*/
+    filter: alpha(opacity=50);
+    text-align: cover;
+}
+
+.login-box{
+    background:url('../img/login-border.png') no-repeat;
+    background-size:contain;
+    width:451px;
+    position: fixed;
+    min-height:446px;
+    top:50%;
+    left:50%;
+    margin-left:-225px;
+    margin-top:-223px;
+    background-color:#fff;
+    z-index:9999;
+    
+}
+.login-box .close{
+    position: absolute;
+    top:-30px;
+    right:-30px;
+    width:40px;
+    height:40px;
+    background: url('../img/close.png') no-repeat;
+    cursor: pointer;
+
+}
+.tab{
+    padding:0 35px;
+    margin-top:20px;
+    cursor: pointer;
+}
+.tab span{
+    font-size:20px;
+    color:#c5c5c1;
+    line-height: 84px;
+    display: inline-block;
+    margin:0 20px;
+}
+.tab span.active{
+    color:#020200;
+    border-bottom: 2px solid #020200;
+}
+.container form{
+    margin-top:3.33rem;
+    padding:0 55px;
+}
+.container form input{
+    border-radius: 10px;
+    width:344px;
+    height:38px;
+    border:1px solid #e6e6e0;
+    padding-left:40px;
+}
+.container button{
+    color:#fff;
+    background-color:#c2797f;
+    border:1px solid #a13036;
+    width:344px;
+    height:39px;
+    margin-top:40px;
+    border-radius:10px;
+}
+.user{
+    background: url('../img/user.png') 10px center no-repeat;
+}
+.pass{
+    margin-top:38px;
+    background: url('../img/pass.png') 10px center no-repeat;
+}
+
+.bottom{
+    padding:20px 55px;
+}
+.remember{
+    float: left;
+}
+.remember span{
+    color: #020200;
+    font-size:13px;
+    display: block;
+    margin:-30px 0 0 20px;
+}
+.remember input{
+    width:20px;
+    height:20px;
+    display: inline-block;
+    color: #941c28;
+    border:1px solid #a0a0a0;
+    border-radius: 5px;
+
+}
+.forget a,.forget span{
+    padding:5px;
+    color:#d36f16;
+}
+
+
+/* support 客服支持 */
+.support{
+    position: fixed;
+    z-index: 9999;
+    width:288px;
+    height:145px;
+    right:77px;
+    top:50%;
+    margin-top:36px;
+    border:1px solid #eae9e9;
+    background-color:#eeeeee;
+    padding:10px 20px;
+}
+
+.support p{
+    color:#666666;
+    font-size: 16px;
+    padding: 8px 0;
+    margin:0;
+   
+}
+
+.weChat{
+
+    width:177px;
+    height:758px;
+    position: fixed;
+    z-index: 9999;
+    right:77px;
+    top:50%;
+    margin-top:-400px;
+    background: url('../img/wechatbg.png');
+    text-align: center;
+}
+.weChat h1{
+    font-size: 24px;
+    color: #040000;
+    margin-top: 155px;
+}
+.weChat div{
+    width:128px;
+    border:1px solid #a8a6a3;
+    border-radius:20px;
+    margin-left: 17px;
+    background-color:#fff;
+    position: relative;
+}
+.QR-code {
+    height: 192px;
+    margin-top: 50px;
+}
+.QR-code .close{
+    width:15px;
+    height:15px;
+    position: absolute;
+    right:15px;
+    top:-35px;
+    cursor: pointer;
+
+}
+.QR-code img{
+    width:95px;
+    height:95px;
+    margin-top: 45px;
+}
+.QR-code span{
+    font-size: 16px;
+    color: #595757;
+    display: block;
+    margin-top:12px;
+}
+.service{
+    height:303px;
+    margin-top: 18px;
+}
+.service img{
+    width:41px;
+    height:41px;
+    margin: 20px 0;
+
+}
+.service p{
+    font-size:15px;
+    color:#020000;
+    margin: 4px 0 0 0;
+    line-height: 23px;
+}
+.service span{
+    font-size:15px;
+    color:#020000;
+    padding: 4px 5px;
+    border-bottom: 1px solid #b4b4b4;
+}
+.service a{
+    font-size:16px;
+    padding: 8px 27px;
+    color:#fff;
+    background-color: #c2797f;
+    border-radius: 10px;
+    border:1px solid #a13036;
+    line-height: 55px;
+
+}
+@media(max-width:500px){
+    
+.login-box{
+        width:80%;
+        left:10%;
+        margin-left:0;
+        background: none;
+    }
+}

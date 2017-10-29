@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>iview example</title>
+    <link rel="stylesheet" type="text/css" href="./static/admin/iview.css">
+    <link rel="stylesheet" type="text/css" href="./static/admin/index.css">
+    <script type="text/javascript" src="./static/admin/vue.js"></script>
+    <script type="text/javascript" src="./static/admin/iview.js"></script>
+    <script src="./static/admin/vue-router.js"></script>
+    <script src="./static/admin/utils.js"></script>
+    <script type="text/javascript" src="./static/admin/templte/table.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="layout">
+            <i-Menu mode="horizontal" theme="dark" active-name="1">
+                <div class="layout-logo">LOFG</div>
+                <div class="layout-nav">
+                    <li class="ivu-menu-item ivu-menu-item-active ivu-menu-item-selected">
+                        <router-link to="/questionbank">题库</router-link>                                                        
+                    </li>
+                    <li class="ivu-menu-item ivu-menu-item-active ivu-menu-item-selected">
+                        <router-link to="/paperlist">试卷</router-link>                            
+                    </li>
+                    <li class="ivu-menu-item ivu-menu-item-active ivu-menu-item-selected">
+                        <router-link to="/answersheetlist">答卷</router-link>                            
+                    </li>
+                </div>
+            </i-Menu>
+        </div>
+        <div class="content">
+            <router-view></router-view>
+        </div>
+    </div>
+
+    <!--题库页面 -->
+    <script type="text/x-template" id="questionbank">
+        <div class="questionbank_div">
+            <Row :gutter="16" class="questionbank_row">
+                <Col span="4" v-for="item of group" class="questionbank_col">
+                    <Icon type="ios-trash-outline" class="deleteicon" @click.native="Delete(item)"></Icon>
+                    <div class="questionbank_col_div" @click="JumpInit(item)"> <span>{{item}} </span></div>
+                </Col>
+                <Col span="4" class="questionbank_col_add">
+                    <div class="questionbank_col_div" @click="addgroupmodal=true"><span>增加题库</span></div>
+                </Col>
+            </Row>
+
+            <Modal v-model="deletemodal" title="Add" ok-text="确认" cancel-text="取消" v-on:on-ok="DeleteOK()">                        
+                警告！请确定删除的分组为【{{delstegroup}}】！
+            </Modal>
+
+            <Modal v-model="addgroupmodal" title="Add" ok-text="确认" cancel-text="取消" v-on:on-ok="AddGroup()">                        
+                <Input  v-model="inputgroup" :placeholder='"请输入分组名称"' ></Input>                    
+            </Modal>
+
+        </div>
+    </script>   
+    <link rel="stylesheet" type="text/css" href="./static/admin/questionbank.css">
+    
+    <!-- 编辑页面 -->
+    <script type="text/x-template" id="info">
+        <div>
+            <Form :model="formItem" :rules="ruleValidate" :label-width="80"> 
+                <Row>
+                    <Col span="12">
+                    <Card>
+                        <FormItem label="题目" prop="title">
+                            <Input v-model="formItem.title" type="textarea" :autosize="{minRows: 4,maxRows: 5}" placeholder="请输入..."></Input>
+                        </FormItem>
+                        <Row>
+                            <Col span="11">
+                            <FormItem label="A选项">
+                                <Input v-model="formItem.option.A" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
+                            </FormItem>
+                            </Col>
+                            <Col span="11" offset="2">
+                            <FormItem label="B选项">
+                                <Input v-model="formItem.option.B" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
+                            </FormItem>
+                            </Col>
+                            <Col span="11">
+                            <FormItem label="C选项">
+                                <Input v-model="formItem.option.C" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
+                            </FormItem>
+                            </Col>
+                            <Col span="11" offset="2">
+                            <FormItem label="D选项">
+                                <Input v-model="formItem.option.D" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
+                            </FormItem>
+                            </Col>
+                        </Row>
+                        <FormItem label="分值">
+                            <Slider v-model="formItem.score" :step="1" show-stops :max=5></Slider>
+                        </FormItem>
+                        <FormItem label="难度系数">
+                            <Slider v-model="formItem.difficult" :step="1" show-stops :max=10></Slider>
+                        </FormItem>
+                        <FormItem label="模式">
+                            <i-switch v-model="formItem.multiple" size="large" @on-change="changemode">
+                                <span slot="open">多选</span>
+                                <span slot="close">单选</span>
+                            </i-switch>
+                        </FormItem>
+                        <FormItem  label="单选答案" ref="multipleopt">
+                            <Select v-model="answer2" :disabled="formItem.multiple ? true:false" style="width:200px"><Option  v-for="item in optionList" :value="item.value" :key="item.key"></Option></Select>
+                        </FormItem>
+                        <FormItem v-if=formItem.multiple label="多选答案">
+                            <Select v-model="answer1" :disabled="formItem.multiple ? false:true" style="width:200px" multiple><Option v-for="item in optionList" :value="item.value" :key="item.key"></Option></Select>
+                        </FormItem>
+                        <FormItem label="分组">
+                            <!-- <Select v-model="formItem.gflag" style="width:200px"><Option v-for="item in group" :value="item.value" :key="item.key"></Option></Select> -->
+                            <Input v-model="formItem.gflag"   disabled></Input>
+                        </FormItem>
+                        <FormItem label="描述">
+                                <Input v-model="formItem.desc" type="textarea" :autosize="{minRows: 4,maxRows: 5}" placeholder="请输入..."></Input>
+                        </FormItem>
+                    </Card>
+                    <Button type="success" @click="create" long>确认提交</Button>
+                    </Col>
+                    <Col span="12">
+                        <div class="subjectmedia"> 
+                            <!-- 图片上传 -->
+                            <Card>
+                                <div class="demo-upload-list" v-for="item in uploadimgList">
+                                    <template v-if="item.status === 'finished'">
+                                        <img :src="item.response.url">
+                                        <div class="demo-upload-list-cover">
+                                            <Icon type="ios-eye-outline" @click.native="handleView(item)"></Icon>
+                                            <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                                        </div>
+                                    </template>
+                                    <template v-else>
+                                        <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+                                    </template>
+                                </div>
+                                <Upload
+                                ref="upload"
+                                multiple 
+                                type="drag" 
+                                :data= base
+                                :show-upload-list="false"
+                                :format="['jpg','jpeg','png']" 
+                                :on-success="handleSuccess"
+                                action="/api/file?action=uploadfile"
+                                style="display: inline-block;width:58px;">
+                                    <div style="width: 58px;height:58px;line-height: 58px;">
+                                            <Icon type="camera" size="20"> </Icon>
+                                    </div>
+                                </Upload>
+                                <Modal title="查看图片" v-model="visible">
+                                        <img :src="imgViewurl" v-if="visible" style="width: 100%">
+                                </Modal>
+                            </Card>
+                            <!-- 音频上传 -->
+                            
+                            <!-- <Card v-if="mediatype == '音频'">                                    
+                                <div class="demo-upload-list-audio" v-for="item in uploadaudioList">
+                                    <template v-if="item.status === 'finished'">
+                                        {{item}}
+                                        <audio :src="item.url" controls="controls"></audio>
+                                    </template>
+                                    <template v-else>
+                                        <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+                                    </template>
+                                </div>
+                                <Upload
+                                ref="upload"
+                                multiple 
+                                type="drag" 
+                                :show-upload-list="false"
+                                :format="['jpg','jpeg','png']" 
+                                :on-success="handleSuccess"
+                                :default-file-list="defaultimgList"
+                                action="api/subject/file?action=uploadfile"
+                                style="display: inline-block;width:58px;">
+                                    <div style="width: 58px;height:58px;line-height: 58px;">
+                                            +<Icon type="camera" size="20"> </Icon>
+                                    </div>
+                                </Upload>
+                            </Card> -->
+
+                        </div>
+                       
+                        选择文件类别
+                        <Select v-model="mediatype" style="width:200px" placeholder="请选择需要上传文件的类型">
+                            <Option v-for="item in mediatypelist" :value="item" :key="item">{{ item }}</Option>
+                        </Select>
+                        {{uploadimgList}}
+                    </Col>
+                </Row>
+            </Form>
+        </div>
+    </script>
+    <link rel="stylesheet" type="text/css" href="./static/admin/info.css">
+    
+    <!--导入页面 -->
+    <script type="text/x-template" id="importsubject">
+    </script>        
+
+     <!--试卷页面 -->
+     <script type="text/x-template" id="paperlist">
+        <div>
+            <i-Table border :columns="columns" :data="paperlist"></i-Table>
+            <div style="margin: 10px;overflow: hidden">
+                    <Button type="primary" size="large" @click="addtData">新增</Button>
+                    <div style="float: right;">
+                        <Page :total="total" :page-size="size" :current="page" show-sizer show-total show-elevator  @on-change="onPageChange" @on-page-size-change="onSizeChange"></Page>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>   
+    <link rel="stylesheet" type="text/css" href="./static/admin/paperlist.css">
+
+     <!--试卷详情页面 -->
+     <script type="text/x-template" id="paperinfo">
+        <div>
+            <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">                        
+                <Row>
+                    <Col span="10">
+                        <Card>
+                            <p slot="title">
+                                <Icon type="ios-film-outline"></Icon>
+                                经典电影
+                            </p>
+                            <FormItem label="活 动" prop="active">
+                                    <Input v-model="formValidate.active" readonly class="total_input" placeholder="请输入活动"></Input>
+                            </FormItem>
+                            <FormItem label="难度系数" prop="difficult">
+                                    <Slider v-model="formValidate.difficult" :step="1" :max=10 show-stops></Slider>
+                            </FormItem>
+                            <!-- <FormItem label="题目列表" prop="ids">
+                                    <Input v-model="formValidate.ids" readonly placeholder="题目列表"></Input>
+                            </FormItem> -->
+                            <FormItem label="随机题目" prop="questrandom">
+                                <i-switch v-model="questrandom" size="large">
+                                        <span slot="open">是</span>
+                                        <span slot="close">否</span>
+                                </i-switch>      
+                            </FormItem>
+                            <FormItem v-if="questrandom"  label="随机题库" prop="quests">
+                                    <Input readonly :value="formValidate.quests" type="textarea" :autosize="{minRows: 4,maxRows: 5}"  placeholder="请在右侧选择需要随机的题库分组》（*-*）"></Input>                                                                        
+                            </FormItem>
+                            <FormItem label="随机答案" prop="answrandom">
+                                    <i-switch v-model="formValidate.answrandom" size="large">
+                                            <span slot="open">是</span>
+                                            <span slot="close">否</span>
+                                    </i-switch>                             
+                            </FormItem>
+                            <FormItem label="是否私有" prop="private">
+                                <RadioGroup v-model="formValidate.private">
+                                        <Radio label="full">私有</Radio>
+                                        <Radio label="semi">半私有</Radio>
+                                </RadioGroup>                            
+                            </FormItem>
+                            <FormItem label="题目总数" prop="total">
+                                <Input v-model="Nrandom_total" min="0" v-if="!questrandom" readonly  class="total_input"  placeholder="请在右侧选择题目"></Input>
+                                <input v-model="random_total" type="number" min="0" v-if="questrandom" placeholder="请输入试卷题目总数"></input>                                
+                            </FormItem>
+                            <FormItem label="每题分数" prop="score">
+                                <input v-model="score" type="number" min="0"  placeholder="每题分数"></input>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总分数  <Input v-model="formValidate.total_score"  style="width:20%;" readonly class="total_input" placeholder="总分数"></Input>                                
+                            </FormItem>
+                            <FormItem label="限制时间" prop="time">
+                                    <input v-model="formValidate.time"  min="1" type="number"  placeholder="请输入限制时间（单位分钟）"></input>单位（分钟）
+                            </FormItem>
+                            <FormItem label="描述信息" prop="desc">
+                                <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 4,maxRows: 5}" placeholder="请输入..."></Input>
+                            </FormItem>
+                            <Button type="success" long @click="handlesuccess">确认提交</Button>                            
+                        </Card>
+                    </Col>
+                    <!-- <Col span="12" v-if="questrandom">
+                        <div>                    
+                            <Card>
+                                <p slot="title">    
+                                    {{notshowgroup}}                                    
+                                    <Icon type="ios-film-outline"></Icon>
+                                    经典电影
+                                </p>
+                                <Checkbox  v-for="item in group" :key="item" v-model="notshowgroup[item]">
+                                    {{item}}
+                                </Checkbox>
+                            </Card>
+                        </div>
+                    </Col> -->
+                    <Col span="12">
+                        
+                        <div>                    
+                            <Card>
+                                <p slot="title">
+                                        {{notshowgroup}}
+                                    <Icon type="ios-film-outline"></Icon>
+                                    经典电影
+                                </p>
+                                <div class="grouplist">
+                                    <Checkbox  v-if="questrandom" v-for="item in group" :key="item" v-model="notshowgroup[item]" @on-change="ChangeGroup_random">
+                                            {{item}}
+                                    </Checkbox>
+
+                                    <Checkbox v-if="!questrandom"  v-for="item in group" :key="item" v-model="showgroup[item]" @on-change="ChangeGroup">
+                                            {{item}}
+                                    </Checkbox>
+                                </div>
+                                <div>
+                                    <div class="disableash" v-if="questrandom">
+                                    </div>
+                                    <Transfer
+                                    :data="data"
+                                    :render-format="render"
+                                    :target-keys="targetKeys"
+                                    :list-style="listStyle"
+                                    :titles=titles                            
+                                    filterable
+                                    :filter-method="filterMethod"
+                                    @on-change="handleChange"></Transfer>
+                                </div>                            
+                            </Card>
+                        </div>
+                    </Col>
+                </Row>
+            </Form>
+        </div>
+    </script>   
+    <link rel="stylesheet" type="text/css" href="./static/admin/paperinfo.css">
+
+     <!--答卷列表 -->
+     <script type="text/x-template" id="answersheetlist">
+        <div>
+            <i-Table border :columns="columns" :data="answetsheetlist"></i-Table>
+            <div style="margin: 10px;overflow: hidden">
+                    <div style="float: right;">
+                        <Page :total="total" :page-size="size" :current="page" show-sizer show-total show-elevator  @on-change="onPageChange" @on-page-size-change="onSizeChange"></Page>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </script>    
+     <!--答卷详情 -->
+     <script type="text/x-template" id="answersheetinfo">
+        <div>
+            <Row>
+                <Col span="24">
+                    <Card>
+                        <p slot="title">标准卡片</p>
+                        <Table :columns="columnsTag" border  :data="Tag"></Table>
+                    </Card>
+                </Col>
+            </Row>
+            <Row>
+                <Col span="24">
+                    <Card>
+                        <p slot="title">标准卡片</p>
+                        <Table :columns="columns" border  :data="answers"></Table>
+                    </Card>
+                </Col>
+            </Row>
+           
+        </div>
+     </script>    
+     <template id="expandRow">
+        <div>
+            <Row v-for="(value, key, index) of row">
+                {{key}} : {{value}}
+            </Row>
+        </div>
+    </template>
+
+
+
+
+    
+    <script src="https://cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
+        <!--加载各个组件  -->
+
+    <script src="./static/admin/templte/expandRow.js"></script>                                
+    <script src="./static/admin/templte/answersheetinfo.js"></script>                                
+    <script src="./static/admin/templte/answersheetlist.js"></script>                        
+    <script src="./static/admin/templte/paperinfo.js"></script>                
+    <script src="./static/admin/templte/paperlist.js"></script>                
+    <script src="./static/admin/templte/questionbank.js"></script>        
+    <script src="./static/admin/templte/list.js"></script>
+    <script src="./static/admin/templte/info.js"></script>
+    <script src="./static/admin/app.js"></script>
+</body>
+</html>
